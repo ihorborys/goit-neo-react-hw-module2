@@ -3,6 +3,7 @@ import './App.css';
 import Description from "./components/Description/Description.jsx";
 import Options from "./components/Options/Options.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
+import Notification from "./components/Notification/Notification.jsx";
 
 
 function App() {
@@ -13,16 +14,24 @@ function App() {
             bad: 0
         });
 
+    const totalFeedback = values.good + values.neutral + values.bad;
+
+
     return (
         <>
             <Description/>
             <Options
                 values={values}
-                setValues={setValues}/>
-            <Feedback
-                values={values}
-                setValues={setValues}/>
+                setValues={setValues}
+                totalFeedback={totalFeedback}/>
+            {totalFeedback ?
+                <Feedback
+                    values={values}
+                    setValues={setValues}/> :
+                <Notification/>
+            }
         </>
+
 
     )
 }

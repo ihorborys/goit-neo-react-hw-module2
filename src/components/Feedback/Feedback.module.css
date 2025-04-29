@@ -1,5 +1,6 @@
-ul {
+.list {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    font-size: 18px;
 }
