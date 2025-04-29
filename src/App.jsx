@@ -27,7 +27,8 @@ function App() {
             {totalFeedback ?
                 <Feedback
                     values={values}
-                    setValues={setValues}/> :
+                    setValues={setValues}
+                    totalFeedback={totalFeedback}/> :
                 <Notification/>
             }
         </>
