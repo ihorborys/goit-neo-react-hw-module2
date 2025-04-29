@@ -25,6 +25,11 @@ const Options = ({values, setValues, totalFeedback}) => {
     }
 
     const valuesReset = () => {
+        setValues({
+            good: 0,
+            neutral: 0,
+            bad: 0
+        });
     }
 
 
