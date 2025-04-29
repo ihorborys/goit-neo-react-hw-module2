@@ -6,13 +6,15 @@ const Feedback = ({values, totalFeedback}) => {
         // Тут використовуй сеттер, щоб оновити стан
 
     }
-    
+
     return <>
         <ul className={styles.list}>
             <li>Good: {values.good}</li>
             <li>Neutral: {values.neutral}</li>
             <li>Bad: {values.bad}</li>
-            {totalFeedback ? <li>Positive: {Math.round((values.good / totalFeedback) * 100)}%</li> : null}
+            {totalFeedback && <li className={styles.total}>Total: {totalFeedback}</li>}
+            {totalFeedback &&
+                <li className={styles.positive}>Positive: {Math.round((values.good / totalFeedback) * 100)} %</li>}
         </ul>
     </>
 }

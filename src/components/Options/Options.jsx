@@ -1,5 +1,5 @@
 import styles from "./Options.module.css"
-import {useState} from "react";
+
 
 const Options = ({values, setValues, totalFeedback}) => {
 
@@ -39,7 +39,7 @@ const Options = ({values, setValues, totalFeedback}) => {
             <button onClick={incrementGood}>Good</button>
             <button onClick={incrementNeutral}>Neutral</button>
             <button onClick={incrementBad}>Bad</button>
-            {totalFeedback ? <button onClick={valuesReset}>Reset</button> : null}
+            {totalFeedback ? <button onClick={valuesReset}>Reset</button> : <></>}
         </div>
     </>
 }

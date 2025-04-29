@@ -4,3 +4,12 @@
     gap: 10px;
     font-size: 18px;
 }
+
+.total {
+    font-weight: bold;
+}
+
+.positive {
+    color: green;
+    font-weight: bold;
+}
