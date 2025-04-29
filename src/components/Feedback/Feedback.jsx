@@ -1,4 +1,5 @@
 import styles from "./Feedback.module.css"
+import PropTypes from "prop-types";
 
 
 const Feedback = ({feedback, totalFeedback}) => {
@@ -13,5 +14,14 @@ const Feedback = ({feedback, totalFeedback}) => {
         </ul>
     </>
 }
+
+Feedback.propTypes = {
+    feedback: PropTypes.shape({
+        good: PropTypes.number,
+        neutral: PropTypes.number,
+        bad: PropTypes.number,
+    }).isRequired,
+    totalFeedback: PropTypes.number.isRequired,
+};
 
 export default Feedback
