@@ -1,46 +1,31 @@
 import styles from "./Options.module.css"
-import {useEffect} from "react";
 
 
-const Options = ({values, setValues, totalFeedback}) => {
+const Options = ({feedback, setFeedback, totalFeedback}) => {
 
-    const incrementGood = () => {
-        setValues({
-            ...values,
-            good: values.good + 1
-        });
+    const updateFeedback = (feedbackType) => {
+        setFeedback({
+            ...feedback,
+            [feedbackType]: feedback[feedbackType] + 1
+        })
     }
 
-    const incrementNeutral = () => {
-        setValues({
-            ...values,
-            neutral: values.neutral + 1
-        });
-    }
-
-    const incrementBad = () => {
-        setValues({
-            ...values,
-            bad: values.bad + 1
-        });
-    }
-
-    const valuesReset = () => {
-        setValues({
+    const feedbackReset = () => {
+        setFeedback({
             good: 0,
             neutral: 0,
             bad: 0
         });
+
+        localStorage.removeItem('feedbackValues')
     }
 
-
-    console.log(values)
     return <>
         <div className={styles.buttons}>
-            <button onClick={incrementGood}>Good</button>
-            <button onClick={incrementNeutral}>Neutral</button>
-            <button onClick={incrementBad}>Bad</button>
-            {totalFeedback ? <button onClick={valuesReset}>Reset</button> : <></>}
+            <button onClick={() => updateFeedback('good')}>Good</button>
+            <button onClick={() => updateFeedback('neutral')}>Neutral</button>
+            <button onClick={() => updateFeedback('bad')}>Bad</button>
+            {totalFeedback ? <button onClick={feedbackReset}>Reset</button> : <></>}
         </div>
     </>
 }

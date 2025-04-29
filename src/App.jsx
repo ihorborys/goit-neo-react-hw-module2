@@ -8,34 +8,36 @@ import Notification from "./components/Notification/Notification.jsx";
 
 function App() {
 
-    const [values, setValues] = useState(
+    const [feedback, setFeedback] = useState(
         {
             good: 0,
             neutral: 0,
             bad: 0
         });
-    console.log(values)
 
-    const totalFeedback = values.good + values.neutral + values.bad;
+    const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
 
-    console.log(totalFeedback)
-    
     useEffect(() => {
         if (totalFeedback === 0) return;
-        localStorage.setItem('feedbackValues', JSON.stringify(values))
-    }, [values])
+        localStorage.setItem('feedbackValues', JSON.stringify(feedback))
+    }, [feedback])
+
+    useEffect(() => {
+        const localFeedbackValues = localStorage.getItem('feedbackValues')
+        if (localFeedbackValues !== null) setFeedback(JSON.parse(localFeedbackValues))
+    }, [])
 
     return (
         <>
             <Description/>
             <Options
-                values={values}
-                setValues={setValues}
+                feedback={feedback}
+                setFeedback={setFeedback}
                 totalFeedback={totalFeedback}/>
             {totalFeedback ?
                 <Feedback
-                    values={values}
-                    setValues={setValues}
+                    feedback={feedback}
+                    setFeedback={setFeedback}
                     totalFeedback={totalFeedback}/> :
                 <Notification/>
             }
