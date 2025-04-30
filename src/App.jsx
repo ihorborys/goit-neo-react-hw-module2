@@ -16,6 +16,7 @@ function App() {
         });
 
     const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+    const positive = Math.round((feedback.good / totalFeedback) * 100);
 
     useEffect(() => {
         if (totalFeedback === 0) return;
@@ -38,7 +39,8 @@ function App() {
                 <Feedback
                     feedback={feedback}
                     setFeedback={setFeedback}
-                    totalFeedback={totalFeedback}/> :
+                    totalFeedback={totalFeedback}
+                    positive={positive}/> :
                 <Notification/>
             }
         </>
