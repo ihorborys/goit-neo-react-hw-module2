@@ -1,50 +1,68 @@
-import {useEffect, useState} from 'react';
-import './App.css';
+import { useEffect, useState } from "react";
+import "./App.css";
 import Description from "./components/Description/Description.jsx";
 import Options from "./components/Options/Options.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
 import Notification from "./components/Notification/Notification.jsx";
 
-
 function App() {
+  const [feedback, setFeedback] = useState(() => {
+    const localFeedbackValues = localStorage.getItem("feedbackValues");
+    if (localFeedbackValues !== null) return JSON.parse(localFeedbackValues);
+    return {
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    };
+  });
 
-    const [feedback, setFeedback] = useState(
-        {
-            good: 0,
-            neutral: 0,
-            bad: 0
-        });
+  const updateFeedback = (feedbackType) => {
+    setFeedback({
+      ...feedback,
+      [feedbackType]: feedback[feedbackType] + 1,
+    });
+  };
 
-    const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
-    const positive = Math.round((feedback.good / totalFeedback) * 100);
+  const feedbackReset = () => {
+    setFeedback({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
 
-    useEffect(() => {
-        if (totalFeedback === 0) return;
-        localStorage.setItem('feedbackValues', JSON.stringify(feedback))
-    }, [feedback])
+    localStorage.removeItem("feedbackValues");
+  };
 
-    useEffect(() => {
-        const localFeedbackValues = localStorage.getItem('feedbackValues')
-        if (localFeedbackValues !== null) setFeedback(JSON.parse(localFeedbackValues))
-    }, [])
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  const positive = Math.round((feedback.good / totalFeedback) * 100);
 
-    return (
-        <>
-            <Description/>
-            <Options
-                feedback={feedback}
-                setFeedback={setFeedback}
-                totalFeedback={totalFeedback}/>
-            {totalFeedback ?
-                <Feedback
-                    feedback={feedback}
-                    setFeedback={setFeedback}
-                    totalFeedback={totalFeedback}
-                    positive={positive}/> :
-                <Notification/>
-            }
-        </>
-    )
+  useEffect(() => {
+    if (totalFeedback === 0) return;
+    localStorage.setItem("feedbackValues", JSON.stringify(feedback));
+  }, [feedback]);
+
+  return (
+    <>
+      <Description />
+      <Options
+        feedback={feedback}
+        setFeedback={setFeedback}
+        totalFeedback={totalFeedback}
+        updateFeedback={updateFeedback}
+        feedbackReset={feedbackReset}
+      />
+      {totalFeedback ? (
+        <Feedback
+          feedback={feedback}
+          setFeedback={setFeedback}
+          totalFeedback={totalFeedback}
+          positive={positive}
+        />
+      ) : (
+        <Notification />
+      )}
+    </>
+  );
 }
 
-export default App
+export default App;
