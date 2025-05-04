@@ -45,8 +45,6 @@ function App() {
     <>
       <Description />
       <Options
-        feedback={feedback}
-        setFeedback={setFeedback}
         totalFeedback={totalFeedback}
         updateFeedback={updateFeedback}
         feedbackReset={feedbackReset}
@@ -54,7 +52,6 @@ function App() {
       {totalFeedback ? (
         <Feedback
           feedback={feedback}
-          setFeedback={setFeedback}
           totalFeedback={totalFeedback}
           positive={positive}
         />
